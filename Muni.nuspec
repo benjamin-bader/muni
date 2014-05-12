@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Muni</id>
+    <version>$version$</version>
+    <authors>Ben Bader</authors>
+    <owners>NerdTracker</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A portable message bus based on Square's Otto</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Message Bus Event</tags>
+  </metadata>
+  <files>
+    <file src="Muni\bin\Release\**\Muni*" target="lib"/>
+  </files>
+</package>
