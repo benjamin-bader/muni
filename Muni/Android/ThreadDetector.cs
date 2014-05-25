@@ -1,13 +1,12 @@
-using System.Threading;
+using Android.OS;
 
 namespace Muni
 {
-    class ThreadDetector
+    internal static class ThreadDetector
     {
-        public bool IsOnMainThread
+        public static bool IsOnMainThread
         {
-            // SynchronizationContext.Current is null everywhere except the main thread... handy!
-            get { return SynchronizationContext.Current != null; }
+            get { return !ReferenceEquals(Looper.MainLooper, Looper.MyLooper()); }
         }
     }
 }

@@ -2,9 +2,9 @@ using System.Windows;
 
 namespace Muni
 {
-    class ThreadDetector
+    internal static class ThreadDetector
     {
-        public bool IsOnMainThread
+        public static bool IsOnMainThread
         {
             get { return Deployment.Current.Dispatcher.CheckAccess(); }
         }

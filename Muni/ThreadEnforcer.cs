@@ -7,15 +7,13 @@ namespace Muni
         public static readonly ThreadEnforcer AnyThread = new AnyThreadEnforcer();
         public static readonly ThreadEnforcer MainThread = new MainThreadEnforcer();
 
-        private static readonly ThreadDetector threadDetector = new ThreadDetector();
-
         public abstract void EnforceThreadAffinity();
 
         private class MainThreadEnforcer : ThreadEnforcer
         {
             public override void EnforceThreadAffinity()
             {
-                if (!threadDetector.IsOnMainThread)
+                if (!ThreadDetector.IsOnMainThread)
                 {
                     throw new InvalidOperationException("");
                 }

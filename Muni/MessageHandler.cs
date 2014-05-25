@@ -7,7 +7,7 @@ namespace Muni
     /// Represents a message subscriber, defined as an object with a handler
     /// method.
     /// </summary>
-    class MessageHandler
+    internal sealed class MessageHandler
     {
         private readonly object target;
         private readonly MethodInfo method;

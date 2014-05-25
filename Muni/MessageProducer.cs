@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Muni
 {
-    sealed class MessageProducer
+    internal sealed class MessageProducer
     {
         private readonly object target;
         private readonly MethodInfo method;

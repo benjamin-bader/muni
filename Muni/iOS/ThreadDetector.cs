@@ -2,7 +2,7 @@ using MonoTouch.Foundation;
 
 namespace Muni
 {
-    class ThreadDetector
+    internal sealed class ThreadDetector
     {
         public bool IsOnMainThread
         {
