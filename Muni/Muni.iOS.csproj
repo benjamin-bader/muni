@@ -26,7 +26,8 @@
     <DocumentationFile>bin\Debug\monotouch\Muni.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\monotouch\</OutputPath>
     <ErrorReport>prompt</ErrorReport>

@@ -27,7 +27,8 @@
     <DocumentationFile>bin\Debug\Portable-Win81+Wpa81\Muni.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\Portable-Win81+Wpa81\</OutputPath>
     <DefineConstants>
