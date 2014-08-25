@@ -3,7 +3,7 @@
 namespace Muni
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class Subscribe : Attribute
+    public class SubscribeAttribute : Attribute
     {
 
     }
