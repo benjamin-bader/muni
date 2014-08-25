@@ -4,7 +4,7 @@ namespace Muni
 {
     internal sealed class ThreadDetector
     {
-        public bool IsOnMainThread
+        public static bool IsOnMainThread
         {
             get { return NSThread.IsMain; }
         }

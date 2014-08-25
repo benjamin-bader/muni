@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Muni", "Muni\Muni.csproj", "{649FB2A5-ADC4-4B12-828F-1F5CA28A6113}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Muni.Android", "Muni\Muni.Android.csproj", "{2A213AD1-A570-4BA1-9A39-604649A788E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Muni.iOS", "Muni\Muni.iOS.csproj", "{E084989F-B3D1-4C85-9394-497F3B5F8B6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Muni.WinRT", "Muni\Muni.WinRT.csproj", "{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,14 @@ Global
 		{E084989F-B3D1-4C85-9394-497F3B5F8B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E084989F-B3D1-4C85-9394-497F3B5F8B6E}.Release|ARM.ActiveCfg = Release|Any CPU
 		{E084989F-B3D1-4C85-9394-497F3B5F8B6E}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7DEBF783-1269-48C6-9ADC-18BFB5A6AE5D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

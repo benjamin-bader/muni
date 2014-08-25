@@ -32,6 +32,13 @@ namespace Muni
                 return false;
             }
 
+#if DEBUG
+            if (method.GetParameters().Length != 1)
+            {
+                throw new ArgumentException("Not a valid subscriber method: " + method.Name);
+            }
+#endif
+
             var t = declaringType.GetGenericTypeDefinition().GetTypeInfo();
             var genericMethods = t.DeclaredMethods.Where(m => m.Name == method.Name);
 
