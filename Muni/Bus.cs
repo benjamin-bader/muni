@@ -5,10 +5,26 @@ using System.Threading;
 
 namespace Muni
 {
+    /// <summary>
+    /// A message bus.
+    /// </summary>
+    /// <remarks>
+    /// TODO FILL ME IN
+    /// </remarks>
     public class Bus
     {
+        /// <summary>
+        /// The default identifier for message busses.
+        /// </summary>
         public const string DefaultIdentifier = "default";
 
+        /// <summary>
+        /// Raised when a message is posted for which there are no subscribers.
+        /// </summary>
+        /// <remarks>
+        /// Useful primarily for debugging - if your code is interested enough in
+        /// an event, just subscribe to it!
+        /// </remarks>
         public event EventHandler<DeadMessageEventArgs> DeadMessageReceived;
 
         private readonly object padlock = new object();
@@ -26,7 +42,20 @@ namespace Muni
 
         private readonly ThreadLocal<bool> isDispatching = new ThreadLocal<bool>(() => false);
 
-        public Bus(string identifier = DefaultIdentifier, ThreadEnforcer enforcer = null)
+        /// <summary>
+        /// Creates a new <see cref="Bus"/>.
+        /// </summary>
+        /// <param name="enforcer">
+        /// The <see cref="ThreadEnforcer"/> to use for this bus.  If not specified,
+        /// <see cref="ThreadEnforcer.MainThread"/> is used.
+        /// </param>
+        /// <param name="identifier">
+        /// An identifier for this bus; useful for debugging.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// When <paramref name="identifier"/> is <see langword="null"/>.
+        /// </exception>
+        public Bus(ThreadEnforcer enforcer = null, string identifier = DefaultIdentifier)
         {
             if (identifier == null)
             {
@@ -35,18 +64,40 @@ namespace Muni
 
             if (enforcer == null)
             {
-                enforcer = ThreadEnforcer.AnyThread;
+                enforcer = ThreadEnforcer.MainThread;
             }
 
             this.identifier = identifier;
             this.enforcer = enforcer;
         }
 
+        /// <summary>
+        /// Generates a textual representation of this instance.
+        /// </summary>
+        /// <returns>
+        /// Returns a textual representation of this instance.
+        /// </returns>
         public override string ToString()
         {
             return "[Bus " + identifier + "]";
         }
 
+        /// <summary>
+        /// Registers the given object with this bus.
+        /// </summary>
+        /// <remarks>
+        /// TODO FILL ME IN
+        /// </remarks>
+        /// <param name="target">
+        /// The subscriber to be registered.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="target"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="target"/> has a producer method for a type
+        /// that already has a producer registered.
+        /// </exception>
         public void Register(object target)
         {
             if (target == null)
@@ -157,6 +208,19 @@ namespace Muni
             }
         }
 
+        /// <summary>
+        /// Removes the given object from this bus, preventing any further messages
+        /// from being delivered to it.
+        /// </summary>
+        /// <param name="target">
+        /// The subscriber to be unregistered.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="target"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="target"/> is not currently registered.
+        /// </exception>
         public void Unregister(object target)
         {
             if (target == null)
@@ -217,6 +281,16 @@ namespace Muni
             }
         }
 
+        /// <summary>
+        /// Posts a new message to the bus, and delivers it to all registered
+        /// subscribers.  Message delivery is synchronous.
+        /// </summary>
+        /// <param name="message">
+        /// The message to be delivered.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="message"/> is <see langword="null"/>.
+        /// </exception>
         public void Post(object message)
         {
             if (message == null)
@@ -336,12 +410,18 @@ namespace Muni
             return hierarchy;
         }
 
-        protected void OnDeadMessage(DeadMessage message)
+        /// <summary>
+        /// Raises the <see cref="DeadMessageReceived"/> event.
+        /// </summary>
+        /// <param name="deadMessage">
+        /// The undelivered message.
+        /// </param>
+        protected void OnDeadMessage(DeadMessage deadMessage)
         {
             var handler = DeadMessageReceived;
             if (handler != null)
             {
-                handler(this, new DeadMessageEventArgs(message));
+                handler(this, new DeadMessageEventArgs(deadMessage.Message));
             }
         }
 

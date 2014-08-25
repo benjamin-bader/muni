@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Muni
 {
@@ -72,7 +70,7 @@ namespace Muni
             IDictionary<Type, MethodInfo> producers = new Dictionary<Type, MethodInfo>();
 
             foreach (var method in from m in t.GetTypeInfo().DeclaredMethods
-                                   where m.GetCustomAttribute<Subscribe>() != null
+                                   where m.GetCustomAttribute<SubscribeAttribute>() != null
                                    select m)
             {
                 var parameters = method.GetParameters().ToList();
@@ -140,11 +138,20 @@ namespace Muni
                     throw new ArgumentException(msg);
                 }
 
-                if (returnType.GetTypeInfo().IsInterface)
+                var returnTypeInfo = returnType.GetTypeInfo();
+                if (returnTypeInfo.IsInterface)
                 {
                     var msg = "Method " + method.Name +
                               " has a [Produce] attribute but its return type is an interface. Messages must" +
                               " be concrete types.";
+                    throw new ArgumentException(msg);
+                }
+
+                if (returnTypeInfo.IsGenericParameter)
+                {
+                    var msg = "Method " + method.Name +
+                              " has a [Produce] attribute but its return type is a generic parameter.  Production" +
+                              " must be of a non-generic type.";
                     throw new ArgumentException(msg);
                 }
 

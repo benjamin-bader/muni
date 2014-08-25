@@ -7,13 +7,14 @@ namespace Muni
     /// Represents a message subscriber, defined as an object with a handler
     /// method.
     /// </summary>
-    internal sealed class MessageHandler
+    internal sealed class MessageHandler : IEquatable<MessageHandler>
     {
         private readonly object target;
         private readonly MethodInfo method;
-        private readonly int hashCode;
-
         private bool valid = true;
+
+        // hashcode is computed on instance creation and cached as an optimization.
+        private readonly int hashCode;
 
         public bool IsValid
         {
@@ -79,30 +80,33 @@ namespace Muni
             return "[MessageHandler " + method.Name + "]";
         }
 
+        public bool Equals(MessageHandler other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return target.Equals(other.target) && method.Equals(other.method);
+        }
+
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, null))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(obj, this))
-            {
-                return true;
-            }
-
-            var that = obj as MessageHandler;
-            if (that == null)
-            {
-                return false;
-            }
-
-            return target.Equals(that.target) && method.Equals(that.method);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj is MessageHandler && Equals((MessageHandler) obj);
         }
 
         public override int GetHashCode()
         {
             return hashCode;
+        }
+
+        public static bool operator ==(MessageHandler left, MessageHandler right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(MessageHandler left, MessageHandler right)
+        {
+            return !Equals(left, right);
         }
     }
 }

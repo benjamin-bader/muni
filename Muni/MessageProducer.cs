@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace Muni
 {
-    internal sealed class MessageProducer
+    internal sealed class MessageProducer : IEquatable<MessageProducer>
     {
         private readonly object target;
         private readonly MethodInfo method;
-        private readonly int hashcode;
         private bool valid = true;
+
+        // hashcode is computed once on object creation and cached as an optimization.
+        // this helps lookup and dispatch be fast.
+        private readonly int hashcode;
 
         public Type ProducerType
         {
@@ -55,18 +58,33 @@ namespace Muni
             return "[MessageProducer " + method.Name + "]";
         }
 
+        public bool Equals(MessageProducer other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return target.Equals(other.target) && method.Equals(other.method);
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            var that = (MessageProducer) obj;
-            return target.Equals(that.target) && method.Equals(that.method);
+            return obj is MessageProducer && Equals((MessageProducer) obj);
         }
 
         public override int GetHashCode()
         {
             return hashcode;
+        }
+
+        public static bool operator ==(MessageProducer left, MessageProducer right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(MessageProducer left, MessageProducer right)
+        {
+            return !Equals(left, right);
         }
     }
 }
