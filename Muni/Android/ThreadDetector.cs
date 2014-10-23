@@ -6,7 +6,7 @@ namespace Muni
     {
         public static bool IsOnMainThread
         {
-            get { return !ReferenceEquals(Looper.MainLooper, Looper.MyLooper()); }
+            get { return ReferenceEquals(Looper.MainLooper, Looper.MyLooper()); }
         }
     }
 }
